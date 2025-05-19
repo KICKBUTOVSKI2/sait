@@ -446,19 +446,8 @@ function getStatusText(status) {
 
 function logout() {
     localStorage.removeItem('isAdmin');
-    
-    // Получаем текущий путь и находим базовый URL
-    const pathParts = window.location.pathname.split('/');
-    const adminIndex = pathParts.findIndex(part => part === 'admin');
-    
-    if (adminIndex > 0) {
-        // Если мы в папке admin, поднимаемся на уровень выше
-        const basePath = pathParts.slice(0, adminIndex).join('/');
-        window.location.href = `${basePath}/index.html`;
-    } else {
-        // Иначе перенаправляем на корень
-        window.location.href = '/index.html';
-    }
+    // Перенаправляем на главную страницу в корне проекта
+    window.location.href = '/index.html';
 }
 
 // Экспорт данных
