@@ -446,7 +446,15 @@ function getStatusText(status) {
 
 function logout() {
     localStorage.removeItem('isAdmin');
-    window.location.href = '../index.html';
+    
+    // Определяем базовый URL в зависимости от окружения
+    const isGitHub = window.location.host.includes('github.io');
+    const baseUrl = isGitHub 
+        ? window.location.pathname.split('/').slice(0, 2).join('/') 
+        : '';
+    
+    // Перенаправляем на главную страницу
+    window.location.href = `${baseUrl}/index.html`;
 }
 
 // Экспорт данных
