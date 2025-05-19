@@ -447,14 +447,18 @@ function getStatusText(status) {
 function logout() {
     localStorage.removeItem('isAdmin');
     
-    // Определяем базовый URL в зависимости от окружения
-    const isGitHub = window.location.host.includes('github.io');
-    const baseUrl = isGitHub 
-        ? window.location.pathname.split('/').slice(0, 2).join('/') 
-        : '';
+    // Получаем текущий путь и находим базовый URL
+    const pathParts = window.location.pathname.split('/');
+    const adminIndex = pathParts.findIndex(part => part === 'admin');
     
-    // Перенаправляем на главную страницу
-    window.location.href = `${baseUrl}/index.html`;
+    if (adminIndex > 0) {
+        // Если мы в папке admin, поднимаемся на уровень выше
+        const basePath = pathParts.slice(0, adminIndex).join('/');
+        window.location.href = `${basePath}/index.html`;
+    } else {
+        // Иначе перенаправляем на корень
+        window.location.href = '/index.html';
+    }
 }
 
 // Экспорт данных
