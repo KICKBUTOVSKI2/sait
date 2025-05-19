@@ -447,15 +447,12 @@ function getStatusText(status) {
 function logout() {
     localStorage.removeItem('isAdmin');
     
-    // Для GitHub Pages
-    if (window.location.host.includes('github.io')) {
-        const repoName = window.location.pathname.split('/')[1];
-        window.location.href = `/${repoName}/index.html`;
-    }
-    // Для локального сервера
-    else {
-        window.location.href = '/index.html';
-    }
+    // Универсальный вариант для всех случаев:
+    const baseUrl = window.location.href.split('/').slice(0, 3).join('/');
+    window.location.href = baseUrl + '/index.html';
+    
+    // Альтернативный вариант:
+    // window.location.href = window.location.origin + '/index.html';
 }
 
 // Экспорт данных
